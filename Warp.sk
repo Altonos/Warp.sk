@@ -1,0 +1,26 @@
+command /setwarp <text>:
+	permission: sk.warpset
+	trigger:
+		set {%arg-1%::warp} to location of player
+		send "&2Warp %arg-1% wurde auf die koordinaten &d %location% &2 gesetzt!"
+		add arg-1 to {Warp::list::*}
+
+command /delwarp <text>:
+	permission: sk.warpdel
+	trigger:
+		delete {%arg-1%::warp}
+		remove arg-1 from {Warp::list::*}
+		send "&7Warp wurde gelöscht!"
+
+
+
+command /warp <text>:
+	permission: sk.warp
+	trigger:
+		teleport player to {%arg-1%::warp}
+		send "&6Du bist nun am Warp %arg-1%"
+
+command /warplist:
+	permission: sk.warp
+	trigger:
+		send "%{Warp::list::*}%"
