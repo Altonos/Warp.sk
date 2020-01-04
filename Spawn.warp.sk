@@ -1,0 +1,48 @@
+on respawn:
+  teleport player to {Spawn}
+
+command /setspawn:
+  permission: Owner
+  trigger:
+    set {_teamp} to player's location
+    set {Spawn} to Player's location
+    message "[&6Spawn&f]&7Der Spawn wurde auf &2%{_temp}% gesetzt" to player
+
+
+command /Spawn:
+  trigger:
+    Teleport Player to {Spawn}
+    message "&6Du bist nun am Spawn" to player
+
+
+
+command /setwarp <text>:
+  permission: Owner
+  trigger:
+    set {Warp::%arg-1%} to location of player
+    add {Warp::%arg-1%} to {Warplist::*}
+    message "[&6warp&f]&7Der warp %arg-1% wurde auf &2%{Warp::%arg-1%}% gesetzt" to player
+
+
+command /warp <text>:
+  trigger:
+    if {Warp::%arg-1%} is in {Warplist::*}:
+      Teleport player to {Warp::%arg-1%}
+      message "[&6warp&f]&7Du bist nun am Warp %arg-1%"
+
+    else:
+      message "[&6warp&f]&7Der warp Existiert nicht, nutze /warplist um alle Warps zu sehen"
+
+
+command /warplist:
+  trigger:
+    message "----------All Warp-----------" to player
+    message "%{Warplist::*}%" to player
+    message "_____________________________" to playerS
+
+
+command /delete <text>:
+  permission: Owner
+  trigger:
+    delete {Warp::%arg-1%}
+    remove {Warp::%arg-1%} from {Warplist::*}
